@@ -145,14 +145,14 @@ export default function MicrositePage() {
       )}
 
       {/* Top Action Bar */}
-      <nav className="sticky top-0 z-40 w-full px-6 py-3.5 bg-[#0b0c0f]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+      <nav className="sticky top-0 z-40 w-full px-3 sm:px-6 py-3.5 bg-[#0b0c0f]/95 backdrop-blur-md border-b border-white/10 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           {/* Dual Brand Logos Badge */}
-          <div className="flex items-center gap-1 bg-[#14161b] px-2.5 py-1 rounded-full border border-white/10 shadow">
+          <div className="flex items-center gap-1 bg-[#14161b] px-2 py-1 sm:px-2.5 sm:py-1 rounded-full border border-white/10 shadow shrink-0">
             <img
               src={site.prospect.logoUrl}
               alt={site.prospect.name}
-              className="w-5 h-5 object-contain rounded-full bg-white p-0.5"
+              className="w-4 h-4 sm:w-5 sm:h-5 object-contain rounded-full bg-white p-0.5"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = site.prospect.faviconUrl;
               }}
@@ -160,44 +160,46 @@ export default function MicrositePage() {
             <img
               src={site.sender.logoUrl}
               alt={site.sender.name}
-              className="w-5 h-5 object-contain rounded-full bg-white p-0.5"
+              className="w-4 h-4 sm:w-5 sm:h-5 object-contain rounded-full bg-white p-0.5"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = site.sender.faviconUrl;
               }}
             />
           </div>
-          <span className="text-sm font-medium text-zinc-300 hidden sm:inline">
+          <span className="text-xs sm:text-sm font-medium text-zinc-300 hidden md:inline truncate">
             A message from <strong className="text-white underline underline-offset-4 decoration-zinc-400">{site.sender.name}</strong>:
           </span>
-          <span className="text-xs text-zinc-400 flex items-center gap-1 font-mono pl-2 border-l border-white/10">
-            <Eye className="w-3.5 h-3.5 text-zinc-400" /> {views}
+          <span className="text-[11px] sm:text-xs text-zinc-400 flex items-center gap-1 font-mono pl-1.5 sm:pl-2 border-l border-white/10 shrink-0">
+            <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-400" /> {views}
           </span>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-[11px] sm:text-xs font-semibold text-zinc-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+            title={isEditing ? 'Cancel Edit' : 'Edit Pitch'}
+            className="px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-[11px] sm:text-xs font-semibold text-zinc-300 flex items-center gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
           >
             {isEditing ? <Save className="w-3.5 h-3.5 text-[#d7fe00]" /> : <Edit3 className="w-3.5 h-3.5 text-zinc-400" />}
-            <span>{isEditing ? 'Cancel Edit' : 'Edit Pitch'}</span>
+            <span className="hidden sm:inline">{isEditing ? 'Cancel Edit' : 'Edit Pitch'}</span>
           </button>
 
           <button
             onClick={handleShare}
-            className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-transparent hover:bg-white/5 border border-white/20 text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 sm:gap-1.5 transition-colors cursor-pointer"
+            title="Share Deck"
+            className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-transparent hover:bg-white/5 border border-white/20 text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 sm:gap-1.5 transition-colors cursor-pointer whitespace-nowrap"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-zinc-300" />}
-            <span>Share Deck 🚀</span>
+            <span className="hidden sm:inline">Share Deck 🚀</span>
           </button>
 
           <button
             onClick={() => setShowBookingModal(true)}
-            className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#1e5ed4] hover:bg-[#1a53bd] text-[11px] sm:text-xs font-extrabold text-white flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-[#1e5ed4]/20 transition-all cursor-pointer"
+            className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#1e5ed4] hover:bg-[#1a53bd] text-[11px] sm:text-xs font-extrabold text-white flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-[#1e5ed4]/20 transition-all cursor-pointer whitespace-nowrap"
           >
             <Zap className="w-3.5 h-3.5 fill-white" />
-            <span>Book Meeting ⚡</span>
+            <span>Book<span className="hidden sm:inline"> Meeting</span> ⚡</span>
           </button>
         </div>
       </nav>
@@ -209,7 +211,7 @@ export default function MicrositePage() {
           <div className="lg:col-span-7 flex flex-col gap-6 sm:gap-8">
             
             {/* Prepared for Prospect Badge */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-semibold text-zinc-400">— Prepared for</span>
               <span className="px-2.5 py-0.5 rounded bg-white/10 text-xs font-bold text-white border border-white/10">
                 {site.prospect.name}
@@ -245,7 +247,7 @@ export default function MicrositePage() {
               </div>
             ) : (
               <>
-                <h1 className="text-2xl sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.18] font-sans">
+                <h1 className="text-[26px] sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight leading-[1.22] sm:leading-[1.18] font-sans">
                   {site.headline}
                 </h1>
 
@@ -265,11 +267,11 @@ export default function MicrositePage() {
                 {site.valuePoints.map((vp, idx) => (
                   <div key={idx} className="flex items-start gap-3">
                     <span className="text-[#d7fe00] font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5">➔</span>
-                    <div className="flex flex-col gap-1">
-                      <div className="flex items-center gap-2">
+                    <div className="flex flex-col gap-1.5 w-full">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-2">
                         <h3 className="text-sm sm:text-base font-bold text-white leading-tight">{vp.title}</h3>
                         {vp.impactMetric && (
-                          <span className="px-2 py-0.5 rounded bg-white/10 text-[10px] font-mono font-bold text-[#d7fe00]">
+                          <span className="self-start sm:self-auto px-2.5 py-0.5 rounded bg-white/10 text-[10px] sm:text-[11px] font-mono font-bold text-[#d7fe00] border border-[#d7fe00]/20 whitespace-nowrap">
                             {vp.impactMetric}
                           </span>
                         )}
