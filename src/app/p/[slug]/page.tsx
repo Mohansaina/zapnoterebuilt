@@ -6,14 +6,9 @@ import Link from 'next/link';
 import {
   Zap,
   Calendar,
-  Sparkles,
-  CheckCircle2,
   Heart,
   Share2,
   Check,
-  MessageSquare,
-  Download,
-  ArrowUpRight,
 } from 'lucide-react';
 import { getMicrositeBySlug, incrementViews, incrementLikes } from '@/lib/storage';
 import { MicrositeData } from '@/lib/types';
@@ -28,7 +23,6 @@ export default function MicrositePage() {
   const [hasLiked, setHasLiked] = useState(false);
   const [copied, setCopied] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
-  const [feedbackSent, setFeedbackSent] = useState(false);
 
   useEffect(() => {
     if (slug) {

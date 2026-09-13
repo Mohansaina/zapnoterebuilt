@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Download, ExternalLink, ArrowRight, Zap, CheckCircle2, Calendar } from 'lucide-react';
+import { Download, Zap, CheckCircle2, Calendar } from 'lucide-react';
 
 export const HeroGallery: React.FC = () => {
   return (
