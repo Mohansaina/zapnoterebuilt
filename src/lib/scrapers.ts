@@ -1,11 +1,18 @@
 import { BrandInfo } from './types';
 
 export function normalizeDomain(domainInput: string): string {
+  if (!domainInput) return '';
   let clean = domainInput.trim().toLowerCase();
   clean = clean.replace(/^https?:\/\//, '');
   clean = clean.replace(/^www\./, '');
   clean = clean.split('/')[0];
   clean = clean.split('?')[0];
+  clean = clean.replace(/[^a-z0-9.-]/g, '');
+
+  // If user typed a brand name without a dot extension (e.g. "stripe" -> "stripe.com")
+  if (clean && !clean.includes('.')) {
+    clean = `${clean}.com`;
+  }
   return clean;
 }
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { X, ExternalLink, Copy, Check, Eye, Heart, Zap, Sparkles } from 'lucide-react';
+import { X, ExternalLink, Copy, Check, Eye, Heart, Zap, Sparkles, Search } from 'lucide-react';
 import { getAllMicrosites } from '@/lib/storage';
 import { MicrositeData } from '@/lib/types';
 
@@ -14,6 +14,7 @@ interface LoginModalProps {
 export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   const [sites, setSites] = useState<MicrositeData[]>([]);
   const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (isOpen) {
@@ -30,11 +31,23 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     setTimeout(() => setCopiedSlug(null), 2000);
   };
 
+  const filteredSites = sites.filter((site) => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return true;
+    return (
+      site.sender.name.toLowerCase().includes(q) ||
+      site.sender.domain.toLowerCase().includes(q) ||
+      site.prospect.name.toLowerCase().includes(q) ||
+      site.prospect.domain.toLowerCase().includes(q) ||
+      site.slug.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-white/15 p-4 sm:p-8 shadow-2xl overflow-hidden flex flex-col gap-5 sm:gap-6 max-h-[90vh]">
+      <div className="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-white/15 p-4 sm:p-8 shadow-2xl overflow-hidden flex flex-col gap-4 sm:gap-5 max-h-[90vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#d7fe00]/10 border border-[#d7fe00]/30 flex items-center justify-center">
               <Zap className="w-5 h-5 text-[#d7fe00] fill-[#d7fe00]" />
@@ -52,18 +65,36 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
+        {/* Search Bar */}
+        {sites.length > 0 && (
+          <div className="relative w-full">
+            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Search by company or domain (e.g., Stripe, Airbnb)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full h-10 pl-10 pr-4 bg-[#090b10] border border-white/10 focus:border-[#d7fe00] rounded-xl text-xs text-white placeholder-zinc-500 focus:outline-none transition-colors"
+            />
+          </div>
+        )}
+
         {/* List of Published Microsites */}
-        <div className="overflow-y-auto flex flex-col gap-4 pr-1">
-          {sites.length === 0 ? (
+        <div className="overflow-y-auto flex flex-col gap-3 pr-1">
+          {filteredSites.length === 0 ? (
             <div className="text-center py-12 text-zinc-400 flex flex-col items-center gap-3">
               <Sparkles className="w-8 h-8 text-[#d7fe00] animate-bounce" />
-              <p className="font-semibold text-zinc-300">No Zapnotes published yet</p>
+              <p className="font-semibold text-zinc-300">
+                {searchQuery ? 'No matching Zapnotes found' : 'No Zapnotes published yet'}
+              </p>
               <p className="text-xs text-zinc-500 max-w-xs">
-                Enter your site and a prospect&apos;s site on the homepage to publish your first co-branded deck!
+                {searchQuery
+                  ? 'Try searching with a different brand or domain name.'
+                  : "Enter your site and a prospect's site on the homepage to publish your first co-branded deck!"}
               </p>
             </div>
           ) : (
-            sites.map((site) => (
+            filteredSites.map((site) => (
               <div
                 key={site.id}
                 className="p-4 rounded-2xl bg-[#090b10] border border-white/10 hover:border-[#d7fe00]/40 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
@@ -135,3 +166,4 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
     </div>
   );
 };
+
