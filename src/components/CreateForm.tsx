@@ -2,14 +2,16 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Loader2, Zap } from 'lucide-react';
+import { Loader2, Zap, Sparkles, Layers } from 'lucide-react';
 import { saveMicrosite } from '@/lib/storage';
 import { MicrositeData } from '@/lib/types';
+import { RealtimePreviewBadge } from './RealtimePreviewBadge';
 
 export const CreateForm: React.FC = () => {
   const router = useRouter();
   const [senderDomain, setSenderDomain] = useState('linkedin.com');
   const [prospectDomain, setProspectDomain] = useState('');
+  const [template, setTemplate] = useState<'pitch' | 'executive' | 'showcase'>('pitch');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,7 +32,7 @@ export const CreateForm: React.FC = () => {
         body: JSON.stringify({
           senderDomain,
           prospectDomain,
-          template: 'pitch',
+          template,
         }),
       });
 
@@ -49,21 +51,57 @@ export const CreateForm: React.FC = () => {
     }
   };
 
+  const handleFillSample = (sender: string, prospect: string) => {
+    setSenderDomain(sender);
+    setProspectDomain(prospect);
+    setError(null);
+  };
+
   return (
     <>
-      {/* Fullscreen Loading Overlay matching Zapnote.io screenshot */}
+      {/* Fullscreen Loading Overlay */}
       {isLoading && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl flex flex-col items-center justify-center gap-4 animate-fadeIn">
           <div className="w-14 h-14 rounded-2xl bg-[#d7fe00]/10 border border-[#d7fe00]/30 flex items-center justify-center shadow-2xl animate-pulse">
             <Zap className="w-8 h-8 text-[#d7fe00] fill-[#d7fe00]" />
           </div>
-          <span className="text-xl font-bold text-white tracking-wide font-sans">
-            Generating Zapnote...
+          <span className="text-xl font-bold text-white tracking-wide font-sans flex items-center gap-2">
+            Generating Zapnote <Sparkles className="w-5 h-5 text-[#d7fe00] animate-spin" />
           </span>
+          <p className="text-xs text-zinc-400">Scraping brand logos & generating tailored pitch deck...</p>
         </div>
       )}
 
       <form onSubmit={handleGenerate} className="flex flex-col gap-4 w-full">
+        {/* Sample Quick-Fill Chips */}
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="text-[11px] font-semibold text-zinc-400 flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-[#d7fe00]" /> Try popular pairs:
+          </span>
+          <button
+            type="button"
+            onClick={() => handleFillSample('stripe.com', 'airbnb.com')}
+            className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-medium transition-colors cursor-pointer"
+          >
+            Stripe × Airbnb
+          </button>
+          <button
+            type="button"
+            onClick={() => handleFillSample('linear.app', 'vercel.com')}
+            className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-medium transition-colors cursor-pointer"
+          >
+            Linear × Vercel
+          </button>
+          <button
+            type="button"
+            onClick={() => handleFillSample('intel.com', 'twitch.tv')}
+            className="text-[11px] px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-zinc-300 font-medium transition-colors cursor-pointer"
+          >
+            Intel × Twitch
+          </button>
+        </div>
+
+        {/* Input Form: Your site | Their site | Generate */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-end gap-3.5 w-full">
           {/* Your site */}
           <div className="flex flex-col gap-1.5 w-full sm:flex-1 min-w-0">
@@ -93,7 +131,7 @@ export const CreateForm: React.FC = () => {
             />
           </div>
 
-          {/* Generate Zapnote Button */}
+          {/* Generate Button */}
           <button
             type="submit"
             disabled={isLoading}
@@ -110,6 +148,41 @@ export const CreateForm: React.FC = () => {
           </button>
         </div>
 
+        {/* Template Style Selector */}
+        <div className="flex items-center gap-2 pt-1">
+          <span className="text-xs font-semibold text-zinc-400 flex items-center gap-1">
+            <Layers className="w-3.5 h-3.5 text-zinc-400" /> Deck Style:
+          </span>
+          <div className="flex items-center gap-1.5 bg-[#14161b] p-1 rounded-xl border border-white/10">
+            {[
+              { id: 'pitch', label: 'Pitch Deck' },
+              { id: 'executive', label: 'Executive Brief' },
+              { id: 'showcase', label: 'Product Showcase' },
+            ].map((t) => (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setTemplate(t.id as 'pitch' | 'executive' | 'showcase')}
+                className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  template === t.id
+                    ? 'bg-[#d7fe00] text-black shadow'
+                    : 'text-zinc-400 hover:text-white'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Live Dual Brand Badge Preview */}
+        {(senderDomain || prospectDomain) && (
+          <RealtimePreviewBadge
+            senderDomain={senderDomain}
+            prospectDomain={prospectDomain}
+          />
+        )}
+
         {error && (
           <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
             {error}
@@ -119,3 +192,4 @@ export const CreateForm: React.FC = () => {
     </>
   );
 };
+

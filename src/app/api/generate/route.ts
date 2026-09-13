@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { fetchBrandInfo } from '@/lib/scrapers';
 import { generateMicrositeContent } from '@/lib/ai';
 import { GenerateRequest } from '@/lib/types';
+import { saveGlobalServerMicrosite } from '@/lib/storage';
 
 export async function POST(req: NextRequest) {
   try {
@@ -32,6 +33,8 @@ export async function POST(req: NextRequest) {
       likes: 0
     };
 
+    saveGlobalServerMicrosite(fullMicrosite);
+
     return NextResponse.json(fullMicrosite);
   } catch (error) {
     console.error('Error generating microsite:', error);
@@ -41,3 +44,4 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+

@@ -31,8 +31,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-white/15 p-6 sm:p-8 shadow-2xl overflow-hidden flex flex-col gap-6 max-h-[90vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+      <div className="relative w-full max-w-2xl rounded-3xl bg-slate-900 border border-white/15 p-4 sm:p-8 shadow-2xl overflow-hidden flex flex-col gap-5 sm:gap-6 max-h-[90vh]">
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
