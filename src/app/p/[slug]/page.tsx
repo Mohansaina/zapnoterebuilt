@@ -105,29 +105,29 @@ export default function MicrositePage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             onClick={handleShare}
-            className="px-4 py-2 rounded-xl bg-transparent hover:bg-white/5 border border-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-transparent hover:bg-white/5 border border-white/20 text-[11px] sm:text-xs font-bold text-white flex items-center gap-1 sm:gap-1.5 transition-colors cursor-pointer"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-zinc-300" />}
-            <span>Add secondary CTA 🚀</span>
+            {copied ? <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400" /> : <Share2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-300" />}
+            <span>Secondary CTA 🚀</span>
           </button>
           <button
             onClick={() => setShowBookingModal(true)}
-            className="px-4 py-2 rounded-xl bg-[#1e5ed4] hover:bg-[#1a53bd] text-xs font-extrabold text-white flex items-center gap-1.5 shadow-lg shadow-[#1e5ed4]/20 transition-all cursor-pointer"
+            className="px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[#1e5ed4] hover:bg-[#1a53bd] text-[11px] sm:text-xs font-extrabold text-white flex items-center gap-1 sm:gap-1.5 shadow-lg shadow-[#1e5ed4]/20 transition-all cursor-pointer"
           >
-            <Zap className="w-3.5 h-3.5 fill-white" />
-            <span>Add primary CTA ⚡</span>
+            <Zap className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-white" />
+            <span>Primary CTA ⚡</span>
           </button>
         </div>
       </nav>
 
       {/* Main 2-Column Split Hero Presentation matching Screenshot 2, 3, & 4 */}
-      <main className="flex-1 w-full max-w-[1400px] mx-auto px-6 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <main className="flex-1 w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column: Title, Subtitle, Bullet List, Metrics */}
-          <div className="lg:col-span-7 flex flex-col gap-8">
+          <div className="lg:col-span-7 flex flex-col gap-6 sm:gap-8">
             
             {/* Prepared for Prospect Badge */}
             <div className="flex items-center gap-2">
@@ -138,27 +138,27 @@ export default function MicrositePage() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight leading-[1.18] font-sans">
+            <h1 className="text-2xl sm:text-4xl lg:text-[42px] font-extrabold text-white tracking-tight leading-[1.2] sm:leading-[1.18] font-sans">
               {site.prospect.name} + {site.sender.name} — built for your mass-market catalog and Prime-style delivery expectations
             </h1>
 
             {/* Subheadline Paragraph */}
-            <p className="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-[650px]">
+            <p className="text-xs sm:text-base text-zinc-400 leading-relaxed max-w-[650px]">
               {site.subheadline || `A quick look at how pairing ${site.prospect.name}'s storefront breadth with ${site.sender.name}'s Prime and free-shipping model can lift order conversion, improve delivery consistency, and reduce customer friction.`}
             </p>
 
             {/* Section 1: What changes for Prospect shoppers (and your ops) */}
-            <div className="flex flex-col gap-6 pt-4 border-t border-white/10">
-              <h2 className="text-xl font-bold text-white tracking-tight">
+            <div className="flex flex-col gap-5 sm:gap-6 pt-4 border-t border-white/10">
+              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
                 What changes for {site.prospect.name} shoppers (and your ops)
               </h2>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5 sm:gap-6">
                 {site.valuePoints.map((vp, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <span className="text-[#d7fe00] font-bold text-lg leading-none shrink-0 mt-0.5">➔</span>
+                    <span className="text-[#d7fe00] font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5">➔</span>
                     <div className="flex flex-col gap-1">
-                      <h3 className="text-base font-bold text-white leading-tight">{vp.title}</h3>
+                      <h3 className="text-sm sm:text-base font-bold text-white leading-tight">{vp.title}</h3>
                       <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-[600px]">{vp.description}</p>
                     </div>
                   </div>
@@ -167,35 +167,35 @@ export default function MicrositePage() {
             </div>
 
             {/* Section 2: What this looks like in practice */}
-            <div className="flex flex-col gap-6 pt-6 border-t border-white/10">
-              <h2 className="text-xl font-bold text-white tracking-tight">
+            <div className="flex flex-col gap-5 sm:gap-6 pt-6 border-t border-white/10">
+              <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
                 What this looks like in practice
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col gap-2">
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col gap-2">
                   <p className="text-xs text-zinc-300 leading-relaxed font-medium">
                     {site.sender.name} has Prime and free shipping across a huge range of everyday essentials—built to handle high-volume, multi-category buying.
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col justify-between gap-3">
-                  <span className="text-2xl font-extrabold text-[#d7fe00] font-mono">Hours saved every week</span>
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col justify-between gap-3">
+                  <span className="text-xl sm:text-2xl font-extrabold text-[#d7fe00] font-mono">Hours saved every week</span>
                   <span className="text-xs text-zinc-400">Streamlined automated catalog syncing and fulfillment updates.</span>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col justify-between gap-3 sm:col-span-2">
-                  <span className="text-2xl font-extrabold text-white font-mono">Fewer costly mistakes</span>
+                <div className="p-4 sm:p-5 rounded-2xl bg-[#12141a] border border-white/10 flex flex-col justify-between gap-3 sm:col-span-2">
+                  <span className="text-xl sm:text-2xl font-extrabold text-white font-mono">Fewer costly mistakes</span>
                   <span className="text-xs text-zinc-400">Clearer shipping expectations cut the volume of delivery-related tickets and refunds.</span>
                 </div>
               </div>
             </div>
 
             {/* Endorsement & Scheduling Bar */}
-            <div className="flex items-center gap-4 pt-6 border-t border-white/10">
+            <div className="flex items-center gap-3 sm:gap-4 pt-6 border-t border-white/10">
               <button
                 onClick={() => setShowBookingModal(true)}
-                className="h-11 px-6 rounded-xl bg-[#d7fe00] hover:bg-[#c5ea00] text-black font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-[#d7fe00]/20 transition-all cursor-pointer"
+                className="h-11 px-5 sm:px-6 rounded-xl bg-[#d7fe00] hover:bg-[#c5ea00] text-black font-extrabold text-xs flex items-center gap-2 shadow-lg shadow-[#d7fe00]/20 transition-all cursor-pointer"
               >
                 <Calendar className="w-4 h-4 fill-black" /> Schedule Demo
               </button>
@@ -215,13 +215,13 @@ export default function MicrositePage() {
           </div>
 
           {/* Right Column: Concentric Circles Graphic Stage with Large White Logo Badges */}
-          <div className="lg:col-span-5 relative sticky top-20">
-            <div className="w-full bg-[#111318] border border-white/10 rounded-3xl p-8 min-h-[560px] relative overflow-hidden flex flex-col items-center justify-center gap-10 shadow-2xl">
+          <div className="lg:col-span-5 relative lg:sticky lg:top-20 w-full">
+            <div className="w-full bg-[#111318] border border-white/10 rounded-3xl p-6 sm:p-8 min-h-[380px] sm:min-h-[480px] lg:min-h-[560px] relative overflow-hidden flex flex-col items-center justify-center gap-6 sm:gap-10 shadow-2xl">
               {/* Radial Pattern Lines Layer */}
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none opacity-60" />
 
               {/* Large Prospect Logo White Circle Badge */}
-              <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-white shadow-2xl flex items-center justify-center p-8 relative z-10 border-4 border-white/20 hover:scale-105 transition-transform duration-300">
+              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-white shadow-2xl flex items-center justify-center p-6 sm:p-8 relative z-10 border-4 border-white/20 hover:scale-105 transition-transform duration-300">
                 <img
                   src={site.prospect.logoUrl}
                   alt={site.prospect.name}
@@ -233,7 +233,7 @@ export default function MicrositePage() {
               </div>
 
               {/* Large Sender Logo White Circle Badge */}
-              <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-white shadow-2xl flex items-center justify-center p-8 relative z-10 border-4 border-white/20 hover:scale-105 transition-transform duration-300">
+              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full bg-white shadow-2xl flex items-center justify-center p-6 sm:p-8 relative z-10 border-4 border-white/20 hover:scale-105 transition-transform duration-300">
                 <img
                   src={site.sender.logoUrl}
                   alt={site.sender.name}
@@ -245,8 +245,8 @@ export default function MicrositePage() {
               </div>
 
               {/* Floating Right Yellow Bolt Badge */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-[#d7fe00] rounded-l-2xl flex items-center justify-center shadow-xl border-l border-y border-black/20">
-                <Zap className="w-5 h-5 text-black fill-black" />
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-8 sm:w-10 h-12 sm:h-14 bg-[#d7fe00] rounded-l-2xl flex items-center justify-center shadow-xl border-l border-y border-black/20">
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-black fill-black" />
               </div>
             </div>
           </div>

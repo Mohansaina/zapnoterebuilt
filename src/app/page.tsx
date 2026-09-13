@@ -76,8 +76,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Column on Desktop / Background Layer on Mobile */}
-          <div className="relative w-full lg:w-auto h-[600px] lg:h-[720px] pointer-events-none lg:pointer-events-auto z-0 lg:z-10 lg:col-span-6 overflow-hidden">
+          {/* Right Column on Desktop / Hidden on Mobile for pure sticky layout */}
+          <div className="hidden lg:block relative w-full lg:w-auto h-[600px] lg:h-[720px] pointer-events-none lg:pointer-events-auto z-10 lg:col-span-6 overflow-hidden">
             <HeroGallery />
           </div>
         </div>
